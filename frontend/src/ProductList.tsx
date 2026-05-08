@@ -37,7 +37,7 @@ export function ProductList({ onAddToCart, isAdmin, refreshKey }: ProductListPro
     setError('');
     try {
       const data = await api.getProducts();
-      setProducts(data);
+      setProducts(data.items);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load products');
     } finally {

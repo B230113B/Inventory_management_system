@@ -23,7 +23,7 @@ export function MyOrders({ onViewOrder, refreshKey, isAdmin }: MyOrdersProps) {
     setError('');
     try {
       const data = await api.getOrders();
-      setOrders(data.reverse());
+      setOrders([...data.items].reverse());
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load orders');
     } finally {
@@ -34,7 +34,7 @@ export function MyOrders({ onViewOrder, refreshKey, isAdmin }: MyOrdersProps) {
   const handleApprove = async (orderId: number) => {
     setProcessingId(orderId);
     try {
-      await api.approvePayment(orderId);
+      await api.approveOrder(orderId);
       loadOrders();
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to approve payment');
@@ -46,7 +46,7 @@ export function MyOrders({ onViewOrder, refreshKey, isAdmin }: MyOrdersProps) {
   const handleReject = async (orderId: number) => {
     setProcessingId(orderId);
     try {
-      await api.rejectPayment(orderId);
+      await api.rejectOrder(orderId);
       loadOrders();
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to reject payment');

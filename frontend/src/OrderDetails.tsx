@@ -52,7 +52,7 @@ export function OrderDetails({ order, onClose, onStatusChange, isAdmin }: OrderD
     setProcessing(true);
     setError('');
     try {
-      await api.approvePayment(order.id);
+      await api.approveOrder(order.id);
       onStatusChange?.(order.id, 'Payment Approved');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to approve payment');
@@ -65,7 +65,7 @@ export function OrderDetails({ order, onClose, onStatusChange, isAdmin }: OrderD
     setProcessing(true);
     setError('');
     try {
-      await api.rejectPayment(order.id);
+      await api.rejectOrder(order.id);
       onStatusChange?.(order.id, 'Payment Rejected');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to reject payment');
