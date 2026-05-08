@@ -344,6 +344,13 @@ async def delete_product(product_id: int, current_user: User = Depends(require_a
     if not db_product:
         raise HTTPException(status_code=404, detail="Product not found")
 
+    # Check if product has linked order items
+    order_items_result = await db.execute(
+        select(OrderItem).where(OrderItem.product_id == product_id).limit(1)
+    )
+    if order_items_result.scalar_one_or_none() is not None:
+        raise HTTPException(status_code=400, detail="Cannot delete product because it is linked to existing orders")
+
     await db.delete(db_product)
     await db.commit()
 
