@@ -1,4 +1,4 @@
-# SwiftStock - Inventory & Order Management System
+# Inventory Management System
 
 A robust, full-stack enterprise inventory and order management portal designed for seamless stock tracking, order processing, and role-based access control.
 
